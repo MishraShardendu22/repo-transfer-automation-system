@@ -1,0 +1,8 @@
+.git
+.env
+*.md
+.gitignore
+.dockerignore
+repo-transfer-automation-system
+bin/
+*.exe
