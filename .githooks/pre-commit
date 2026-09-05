@@ -182,7 +182,7 @@ fi
 
 if [ "$CHECK_FE" -eq 1 ]; then
     if [ "${SKIP_BUILDS:-0}" != "1" ]; then
-        run_step "Frontend Next.js Build" "(cd frontend && npm run build)" "Run 'cd frontend && npm run build' to debug compilation errors."
+        run_step "Frontend Next.js Build" "(cd frontend && pnpm run build)" "Run 'cd frontend && pnpm run build' to debug compilation errors."
     else
         log_warn "Frontend build skipped via SKIP_BUILDS=1"
         SKIPPED_STEPS+=("Frontend Build")
