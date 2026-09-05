@@ -1,6 +1,6 @@
-package main
+package server
 
-const dashboardHTML = `<!DOCTYPE html>
+const DashboardHTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">

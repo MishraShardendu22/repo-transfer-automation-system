@@ -173,7 +173,7 @@ if [ "$CHECK_GO" -eq 1 ]; then
     fi
     if [ "${SKIP_BUILDS:-0}" != "1" ]; then
         mkdir -p bin
-        run_step "Go Build Verification" "go build -o bin/server ./..." "Fix compilation errors reported by 'go build -v ./...'."
+        run_step "Go Build Verification" "go build -o bin/server . && go build ./..." "Fix compilation errors reported by 'go build -v ./...'."
     else
         log_warn "Go build skipped via SKIP_BUILDS=1"
         SKIPPED_STEPS+=("Go Build")
