@@ -1,2 +1,4 @@
 .env
-go.sum
+repo-transfer-automation-system
+bin/
+*.exe
