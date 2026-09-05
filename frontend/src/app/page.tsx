@@ -146,8 +146,9 @@ export default function Home() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Transfer failed");
 
-      setResults(data.results);
-      data.results.forEach((item: TransferResult) => {
+      const transferResults: TransferResult[] = Array.isArray(data) ? data : data.results || [];
+      setResults(transferResults);
+      transferResults.forEach((item: TransferResult) => {
         if (item.success) {
           addLog(`Transferred ${item.repo} -> ${targetUser} (HTTP 202)`, "success");
         } else {
@@ -169,8 +170,8 @@ export default function Home() {
       <header className="border-b border-zinc-800 bg-zinc-900/60 backdrop-blur sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-600/10 border border-blue-500/20 rounded-lg text-blue-400">
-              <ArrowRightLeft className="w-5 h-5" />
+            <div className="w-8 h-8 rounded-lg overflow-hidden border border-blue-500/30 flex-shrink-0 bg-blue-950">
+              <img src="/oauth-logo.png" alt="GHRA Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <span className="font-semibold text-zinc-100 text-sm tracking-tight">GitHub Repository Transfer</span>

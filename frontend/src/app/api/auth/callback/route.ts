@@ -38,7 +38,11 @@ export async function GET(request: Request) {
       );
     }
 
-    const response = NextResponse.redirect(`${origin}/`);
+    const rawAppUrl = process.env.APP_URL;
+    const baseUrl = rawAppUrl && !rawAppUrl.includes("localhost")
+      ? rawAppUrl.replace(/\/$/, "")
+      : origin;
+    const response = NextResponse.redirect(`${baseUrl}/`);
     response.cookies.set("gh_session", data.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

@@ -57,13 +57,15 @@ Supports both interactive web usage (with GitHub OAuth authentication and real-t
 - Go 1.24+ installed
 - A registered GitHub OAuth Application (optional for OAuth, or use a Personal Access Token)
 
-### 2. Register a GitHub OAuth App (Optional)
+### 2. Register / Update GitHub OAuth App
 To enable one-click GitHub login for all users:
-1. Navigate to **GitHub Settings** -> **Developer Settings** -> **OAuth Apps** -> **New OAuth App**.
-2. Set **Application Name**: `GitHub Repository Transfer Engine`.
-3. Set **Homepage URL**: `http://localhost:8080` (or your production domain).
-4. Set **Authorization callback URL**: `http://localhost:8080/api/auth/callback`.
-5. Copy the generated **Client ID** and **Client Secret**.
+1. Navigate to **GitHub Settings** -> **Developer Settings** -> **OAuth Apps** -> Select your App (or click **New OAuth App**).
+2. Set **Application Name**: `GitHub Repository Transfer Automation`.
+3. Set **Homepage URL**: `https://repo-transfer-automation-system.vercel.app` (or custom domain `https://repo-transfer.mishrashardendu22.is-a.dev`).
+4. Set **Application Description**: `High-performance automated repository migration platform for GitHub. Enables seamless batch repository ownership transfers across accounts and organizations with OAuth authentication, real-time logging, and verification.`
+5. Set **Application Logo**: Upload `assets/oauth-app-logo.png` (or `frontend/public/oauth-logo.png`).
+6. Set **Authorization callback URL**: `https://repo-transfer-automation-system.vercel.app/api/auth/callback` (or `http://localhost:8080/api/auth/callback` for local development).
+7. Copy the generated **Client ID** and **Client Secret**.
 
 ### 3. Environment Configuration
 Copy `.env.example` to `.env`:
@@ -81,8 +83,13 @@ GITHUB_CLIENT_SECRET=your_client_secret_here
 # Optional: Fallback token for headless/CLI usage
 GITHUB_TOKEN_CLASSIC=ghp_your_classic_token_here
 
-PORT=8080
-APP_URL=http://localhost:8080
+# Production:
+PORT=443
+APP_URL=https://repo-transfer-automation-system.vercel.app
+
+# Local Go server / Next.js development:
+# PORT=8080
+# APP_URL=http://localhost:8080
 ```
 
 ---

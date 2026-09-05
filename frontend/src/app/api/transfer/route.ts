@@ -58,8 +58,16 @@ export async function POST(request: Request) {
     const results = await Promise.all(
       repositories.map(async (repoName: string) => {
         try {
+          let owner = originalUser;
+          let actualRepo = repoName;
+          if (repoName.includes("/")) {
+            const parts = repoName.split("/");
+            owner = parts[0];
+            actualRepo = parts[1];
+          }
+
           const res = await fetch(
-            `https://api.github.com/repos/${originalUser}/${repoName}/transfer`,
+            `https://api.github.com/repos/${owner}/${actualRepo}/transfer`,
             {
               method: "POST",
               headers: {
@@ -68,7 +76,10 @@ export async function POST(request: Request) {
                 "X-GitHub-Api-Version": "2022-11-28",
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ new_owner: target_user }),
+              body: JSON.stringify({
+                new_owner: target_user,
+                new_name: actualRepo,
+              }),
             }
           );
 
@@ -99,7 +110,10 @@ export async function POST(request: Request) {
       })
     );
 
-    return NextResponse.json(results);
+    return NextResponse.json({
+      target_user,
+      results,
+    });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }

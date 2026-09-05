@@ -10,7 +10,11 @@ export async function GET(request: Request) {
   }
 
   const url = new URL(request.url);
-  const redirectUri = `${url.origin}/api/auth/callback`;
+  const rawAppUrl = process.env.APP_URL;
+  const baseUrl = rawAppUrl && !rawAppUrl.includes("localhost")
+    ? rawAppUrl.replace(/\/$/, "")
+    : url.origin;
+  const redirectUri = `${baseUrl}/api/auth/callback`;
   const state = Math.random().toString(36).substring(2, 15);
   const scope = "repo,admin:repo_hook";
 
